@@ -1,2 +1,6 @@
 .env
 .venv/
+.cache\preeminence/_pycache__/
+.cache
+preeminence/_pycache__/
+preeminence/__pycache__/
