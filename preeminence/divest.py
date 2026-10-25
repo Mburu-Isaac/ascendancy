@@ -1,0 +1,4 @@
+
+
+class EraseTrack:
+    pass
