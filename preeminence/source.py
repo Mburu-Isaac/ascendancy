@@ -9,8 +9,9 @@ class SourceTracks:
       self.authorize = authorization.sp
       self.user_playlists = []
       self.target_playlists_ids = []
+      self.target_playlists = []
 
-   def get_target_playlists(self):
+   def source_playlists_names(self):
 
       limit = 50
       offset = 0
@@ -35,25 +36,32 @@ class SourceTracks:
       return playlist_names
 
 
-
    def retrieve_playlist_ids(self, target_playlists):
 
       target_indexes = []
 
       for target_name in tuple(target_playlists):
-         target_indexes.append(self.get_target_playlists().index(target_name))
+         target_indexes.append(self.source_playlists_names().index(target_name))
 
       for index in target_indexes:
          target_id = self.user_playlists[index].get("id")
          self.target_playlists_ids.append(target_id)
 
-      return self.target_playlists_ids
+   def get_target_playlists(self):
+
+      for playlist_id in tuple(self.target_playlists_ids):
+         self.target_playlists.append(self.authorize.playlist(playlist_id=playlist_id))
+
+      pprint(self.target_playlists)
+
+
+   def source_target_tracks(self):
+      pass
    
 
 
 source = SourceTracks()
-ids = source.retrieve_playlist_ids(
+source.retrieve_playlist_ids(
    target_playlists = ["Nolstagic", "Afro", "OverDrive", "254 spits", "Chill Afro", "Glass Hearts & Wild Fire 🧬👣", "Lukas Graham", "EDM"]
 )
-
-print(ids)
+source.get_target_playlists()
