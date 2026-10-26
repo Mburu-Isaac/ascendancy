@@ -38,15 +38,22 @@ class SourceTracks:
 
    def retrieve_playlist_ids(self, target_playlists):
 
+      target_indexes = []
+
       for target_name in tuple(target_playlists):
-         print(self.get_target_playlists().index(target_name))
+         target_indexes.append(self.get_target_playlists().index(target_name))
 
-      # pprint(self.user_playlists)
+      for index in target_indexes:
+         target_id = self.user_playlists[index].get("id")
+         self.target_playlists_ids.append(target_id)
 
-      
+      return self.target_playlists_ids
+   
+
 
 source = SourceTracks()
-pprint(source.get_target_playlists())
-source.retrieve_playlist_ids(
+ids = source.retrieve_playlist_ids(
    target_playlists = ["Nolstagic", "Afro", "OverDrive", "254 spits", "Chill Afro", "Glass Hearts & Wild Fire 🧬👣", "Lukas Graham", "EDM"]
 )
+
+print(ids)
