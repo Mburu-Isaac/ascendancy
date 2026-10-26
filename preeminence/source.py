@@ -1,6 +1,8 @@
 from .auth import Authorization
 from pprint import pprint
 import time
+import requests
+import time
 
 authorization = Authorization()
 
@@ -8,29 +10,31 @@ class SourceTracks:
    
    def __init__(self):
       self.authorize = authorization.sp
+      # self.apis_access_token = authorization.access_token_cache()
       self.playlist_ids = []
 
    def get_user_playlists(self):
-      # target_playlists = []
 
-      playlist_names = []
+      limit = 50
+      offset = 0
 
-      current_user_playlists = self.authorize.current_user_playlists(limit=50, offset=0)
-      
-      while len(playlist_names) != current_user_playlists["total"]:
+      user_playlists = []
 
-         current_user_playlists = self.authorize.current_user_playlists(limit=50, offset=0)
+      while True:
+         current_user_playlists = self.authorize.current_user_playlists(limit=limit, offset=offset)
+         items = current_user_playlists["items"]
 
-         for item in current_user_playlists["items"]:
-            if item["name"] not in playlist_names:
-               playlist_names.append(item["name"])
+         user_playlists.extend(items)
+         offset += limit
+
+         if offset >= current_user_playlists["total"]:
+            break
+
+      return len(user_playlists)
 
 
-         time.sleep(5)
-
-      return playlist_names
 
       
 
 source = SourceTracks()
-pprint(source.get_user_playlists())
+print(source.get_user_playlists())
