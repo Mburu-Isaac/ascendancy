@@ -9,7 +9,6 @@ class SourceTracks:
       self.authorize = authorization.sp
       self.user_playlists = []
       self.target_playlists_ids = []
-      self.target_playlists = []
 
    def source_playlists_names(self):
 
@@ -47,16 +46,37 @@ class SourceTracks:
          target_id = self.user_playlists[index].get("id")
          self.target_playlists_ids.append(target_id)
 
-   def get_target_playlists(self):
+   def get_track_ids(self, playlist_id):
+
+      target_track_ids = []
+      offset = 0
+      limit = 2
+
+      while True:
+
+         playlist_item = self.authorize.playlist_items(
+               playlist_id=playlist_id, 
+               limit=limit,
+               offset=offset
+            )
+
+         for item in playlist_item.get("items"):
+               track_id = item.get("item").get("id")
+               target_track_ids.append(track_id)
+
+               if not playlist_item.get("next"):
+                  break
+
+               offset += limit
+
+         return target_track_ids
+
+   def track_details_retrieval_start(self):
+
+      playlists_data = {}
 
       for playlist_id in tuple(self.target_playlists_ids):
-         self.target_playlists.append(self.authorize.playlist(playlist_id=playlist_id))
-
-      pprint(self.target_playlists)
-
-
-   def source_target_tracks(self):
-      pass
+         print(self.get_track_ids(playlist_id))
    
 
 
@@ -64,4 +84,5 @@ source = SourceTracks()
 source.retrieve_playlist_ids(
    target_playlists = ["Nolstagic", "Afro", "OverDrive", "254 spits", "Chill Afro", "Glass Hearts & Wild Fire 🧬👣", "Lukas Graham", "EDM"]
 )
-source.get_target_playlists()
+# source.get_track_details()
+source.track_details_retrieval_start()
