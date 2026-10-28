@@ -11,10 +11,10 @@ class Authorization:
                 client_id = os.environ.get("MY_CLIENT_ID"),
                 client_secret = os.environ.get("MY_CLIENT_SECRET"),
                 redirect_uri = "https://example.com",
-                scope = "playlist-read-private"
+                scope = "playlist-read-private playlist-modify-private playlist-modify-public"
             )
         )
-
+        self.current_user = self.sp.current_user()
 
 
 
