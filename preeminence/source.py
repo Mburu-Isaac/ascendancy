@@ -76,11 +76,12 @@ class SourceTracks:
          playlist_id:[]
       }
       offset = 0
-      limit = 2
+      limit = 50
 
       while True:
 
-         playlist_item = self.authorize.playlist_items(
+         playlist_item = self.handle_spotify_calls(
+               self.authorize.playlist_items,
                playlist_id=playlist_id, 
                limit=limit,
                offset=offset
