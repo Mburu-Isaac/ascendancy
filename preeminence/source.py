@@ -39,7 +39,11 @@ class SourceTracks:
       offset = 0
 
       while True:
-         current_user_playlists = self.authorize.current_user_playlists(limit=limit, offset=offset)
+         current_user_playlists = self.handle_spotify_calls(
+            self.authorize.current_user_playlists,
+            limit=limit,
+            offset=offset
+         )
          items = current_user_playlists["items"]
 
          if not items:
@@ -51,10 +55,7 @@ class SourceTracks:
          if offset >= current_user_playlists["total"]:
             break
 
-      playlist_names = []
-      for playlist in self.user_playlists:
-         playlist_names.append(playlist["name"])
-
+      playlist_names = [playlist["name"] for playlist in self.user_playlists]
       return playlist_names
 
 
