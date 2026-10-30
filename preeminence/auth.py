@@ -74,9 +74,5 @@ class Authorization:
     def client_credentials_flow(self):
         return self.access_token_cache()
 
-auth1 = Authorization()
-
-print(auth1.client_credentials_flow())
-print(auth1.client_credentials_flow())
 
 
