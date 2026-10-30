@@ -4,3 +4,4 @@
 .cache
 preeminence/_pycache__/
 preeminence/__pycache__/
+__pycache__/

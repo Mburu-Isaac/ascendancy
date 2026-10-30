@@ -1,6 +1,5 @@
 import base64
 import os
-import re
 import time
 
 import requests
@@ -23,7 +22,8 @@ class Authorization:
                 client_secret = self.client_secret,
                 redirect_uri = "https://example.com",
                 scope = "playlist-read-private playlist-modify-private"
-            )
+            ),
+            requests_timeout=15
         )
         return sp
 

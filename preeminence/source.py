@@ -15,8 +15,8 @@ class SourceTracks:
       self.target_playlists_ids = []
 
 
-source_tracks = SourceTracks()
-print(source_tracks.user_id)
+# source_tracks = SourceTracks()
+# print(source_tracks.user_id)
 
 
 #    def source_playlists_names(self):
