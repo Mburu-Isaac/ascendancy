@@ -1,37 +1,19 @@
-from .auth import Authorization
 from pprint import pprint
+
 import spotipy
-import time
+
+from .auth import Authorization
 
 authorization = Authorization()
 
 class SourceTracks:
    
    def __init__(self):
-      self.authorize = authorization.sp
+      self.sp = authorization.authorization_code_flow()
+      self.user_id = authorization.current_user_id()
       self.user_playlists = []
       self.target_playlists_ids = []
-      self.user_id = authorization.current_user.get("id")
 
-   def handle_spotify_calls(self, method, *args, **kwargs):
-      
-      max_retries = 5
-      exponential_delay = 2
-
-      for attempt in range(max_retries):
-         try:
-            time.sleep(0.15)
-            return method(*args, **kwargs)
-         except spotipy.exceptions.SpotifyException as error:
-            if error.http_status == 429:
-               retry_after = error.headers.get("Retry-After", exponential_delay ** attempt)
-               print(f"rate limit hit. pushing for {retry_after} seconds before retry")
-               time.sleep(retry_after)
-            else:
-               raise
-
-      raise Exception("max retries exhausted due to spotify's rate limiting")  # noqa: TRY002
-            
 
    def source_playlists_names(self):
 

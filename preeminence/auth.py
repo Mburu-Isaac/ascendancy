@@ -24,7 +24,17 @@ class Authorization:
         current_user = self.authorization_code_flow().current_user()
         return current_user
 
+    def current_user_id(self):
+        current_user = self.get_current_user()
+        
+        if current_user is not None:
+            return current_user["id"]
 
+    def client_credentials_flow(self):
+        pass
+
+authorization = Authorization()
+print(authorization.get_current_user())
 
         
 
