@@ -10,7 +10,7 @@ class TrackTerminus:
         self.user_id = SourceTracks().user_id
         self.sp = Authorization().authorization_code_flow()
 
-    def create_playlist(self, playlists):
+    def create_playlist(self, playlists: dict):
 
         for name, description in playlists.items():
             try:
