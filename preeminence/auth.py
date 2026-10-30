@@ -1,5 +1,7 @@
 import base64
 import os
+import re
+import time
 
 import requests
 import spotipy
@@ -12,6 +14,7 @@ class Authorization:
         self.client_id =  os.environ.get("MY_CLIENT_ID")
         self.client_secret = os.environ.get("MY_CLIENT_SECRET")
         self.access_token = None
+        self.expires_at = 0
 
     def authorization_code_flow(self):
         sp = spotipy.Spotify(
@@ -33,6 +36,11 @@ class Authorization:
 
         if current_user is not None:
             return current_user["id"]
+
+    def access_token_cache(self):
+        if not self.access_token or time.time() >= (self.expires_at - 45):
+            return self.request_access_token()
+        return self.access_token
 
     def request_access_token(self):
         credentials_to_encode = f"{self.client_id}:{self.client_secret}"
@@ -60,15 +68,15 @@ class Authorization:
 
         response.raise_for_status()
         self.access_token = response.json()["access_token"]
+        self.expires_at = response.json().get("expires_in", 3600) + time.time()
         return self.access_token
 
     def client_credentials_flow(self):
-        access_token = self.request_access_token()
-        return access_token
+        return self.access_token_cache()
 
-authorization = Authorization()
-print(authorization.client_credentials_flow())
+auth1 = Authorization()
 
-        
+print(auth1.client_credentials_flow())
+print(auth1.client_credentials_flow())
 
 
