@@ -53,6 +53,34 @@ class SourceTracks:
 
       return target_playlists_ids
 
+   def get_track_uris(self, playlist_id):
+      target_track_uris = {
+         playlist_id:[]
+      }
+
+      limit = 100
+      offset = 0
+
+      while True:
+
+         playlist_item = self.sp.playlist_tracks(
+            playlist_id=playlist_id,
+            limit=limit,
+            offset=offset
+         )
+
+         if playlist_item:
+            for item in playlist_item.get("items"):
+               track_uri = item.get("item").get("uri")
+               target_track_uris[playlist_id].append(track_uri)
+
+               if not playlist_item.get("next"):
+                  break
+
+               offset += limit
+
+         return target_track_uris
+
    def retrieve_track_details(self, target_playlists):
 
       playlist_data = {}
