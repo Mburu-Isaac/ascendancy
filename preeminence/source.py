@@ -44,18 +44,24 @@ class SourceTracks:
    def retrieve_playlists_ids(self, target_playlists):
 
       target_playlists_ids = []
-      print("system commencing playlists names retrieval process")
-      playlist_names = self.source_playlist_details()
+      print("system commencing playlists details retrieval process")
 
+      self.source_playlist_details()
 
-      for target_playlist_name in tuple(target_playlists):
+      essential_playlist_data = {
+         playlist.get("name"):playlist.get("id") for playlist in self.user_playlists_details if playlist and playlist.get("name")
+      }
 
-         if playlist_names:
-            target_playlist_index = playlist_names.index(target_playlist_name)
+      for target_playlist_name in target_playlists:
 
-            target_playlist_id = self.user_playlists_details[target_playlist_index].get("id")
+         if target_playlist_name in essential_playlist_data:
+            target_playlist_id = essential_playlist_data[target_playlist_name]
             target_playlists_ids.append(target_playlist_id)
+
             print(f"{target_playlist_name} id appended to 'target playlist ids' list")
+
+         else:
+            print(f"playlist '{target_playlist_name}' not found in user's library")
 
       return target_playlists_ids
 
