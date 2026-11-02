@@ -1,4 +1,3 @@
-from pprint import pprint
 
 from .auth import Authorization
 
@@ -91,11 +90,11 @@ class SourceTracks:
          if not items:
             break
 
-         for item in items:
-            track = item.get("track")
+         for item_entity in items:
+            track_item = item_entity.get("item")
 
-            if track and track.get("uri"):
-               playlist_tracks_data[playlist_id].append(track.get("uri"))
+            if track_item and track_item.get("uri"):
+               playlist_tracks_data[playlist_id].append(track_item.get("uri"))
 
          if not playlist_item.get("next"):
             break
