@@ -1,7 +1,6 @@
 import time
 
 import requests
-from spotipy.exceptions import SpotifyException
 
 from .auth import Authorization
 from .source import SourceTracks
