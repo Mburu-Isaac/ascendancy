@@ -38,6 +38,21 @@ class SourceTracks:
             playlist_names = [playlist["name"] for playlist in self.user_playlists]
             return playlist_names
 
+   def retrieve_playlists_ids(self, target_playlists):
+      
+      target_playlists_ids = []
+      playlist_names = self.source_playlist_names()
+
+      for target_playlist_name in tuple(target_playlists):
+
+         if playlist_names:
+            target_playlist_index = playlist_names.index(target_playlist_name)
+
+            target_playlist_id = self.user_playlists[target_playlist_index].get("id")
+            target_playlists_ids.append(target_playlist_id)
+
+      return target_playlists_ids
+
 
 # source_tracks = SourceTracks()
 # print(source_tracks.user_id)
