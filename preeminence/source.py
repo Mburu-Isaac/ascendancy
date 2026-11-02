@@ -11,7 +11,9 @@ class SourceTracks:
       self.user_id = authorization.current_user_id()
       self.user_playlists_details = []
 
-   def source_playlist_names(self):
+   def source_playlist_details(self):
+
+      self.user_playlists_details = []
 
       limit = 50
       offset = 0
@@ -22,27 +24,28 @@ class SourceTracks:
             offset=offset
          )
 
-         if current_user_playlists:
-            items = current_user_playlists["items"]
+         if not current_user_playlists:
+            break
 
-            if not items:
-               break
+         items = current_user_playlists.get("items", [])
 
-            self.user_playlists_details.extend(items)
+         if not items:
+            break
 
-            offset += limit
+         self.user_playlists_details.extend(items)
 
-            if offset >= current_user_playlists["total"]:
-               break
+         offset += limit
 
-      playlist_names = [playlist["name"] for playlist in self.user_playlists_details]
-      return playlist_names
+         if offset >= current_user_playlists["total"]:
+            break
+
+      return self.user_playlists_details
 
    def retrieve_playlists_ids(self, target_playlists):
 
       target_playlists_ids = []
       print("system commencing playlists names retrieval process")
-      playlist_names = self.source_playlist_names()
+      playlist_names = self.source_playlist_details()
 
 
       for target_playlist_name in tuple(target_playlists):
