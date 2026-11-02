@@ -107,13 +107,18 @@ class SourceTracks:
    def retrieve_track_details(self, target_playlists):
 
       playlist_data = {}
+
       target_playlist_ids = self.retrieve_playlists_ids(
          target_playlists=target_playlists
       )
 
+      if not target_playlist_ids:
+         print("No valid playlist IDs found for the target playlists")
+
       for playlist_id in target_playlist_ids:
-         track_details = self.get_track_uris(playlist_id)
-         playlist_data.update(track_details)
+         if playlist_id:
+            track_details = self.get_track_uris(playlist_id)
+            playlist_data.update(track_details)
 
       return playlist_data
 
