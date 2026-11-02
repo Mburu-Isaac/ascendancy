@@ -94,8 +94,8 @@ class SourceTracks:
          for item in items:
             track = item.get("track")
 
-            if track and item.get("uri"):
-               playlist_tracks_data[playlist_id] = item.get("uri")
+            if track and track.get("uri"):
+               playlist_tracks_data[playlist_id].append(track.get("uri"))
 
          if not playlist_item.get("next"):
             break
