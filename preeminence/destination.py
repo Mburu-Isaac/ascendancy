@@ -57,3 +57,5 @@ class TrackTerminus:
 
         return created_playlists_ids
             
+    def add_to_playlists(self):
+        pass

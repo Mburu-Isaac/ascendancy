@@ -1,7 +1,5 @@
 from pprint import pprint
 
-import spotipy
-
 from .auth import Authorization
 
 authorization = Authorization()
@@ -12,7 +10,6 @@ class SourceTracks:
       self.sp = authorization.authorization_code_flow()
       self.user_id = authorization.current_user_id()
       self.user_playlists = []
-      self.target_playlists_ids = []
 
 
 # source_tracks = SourceTracks()
