@@ -11,6 +11,33 @@ class SourceTracks:
       self.user_id = authorization.current_user_id()
       self.user_playlists = []
 
+   def source_playlist_names(self):
+
+      limit = 50
+      offset = 0
+
+      while True:
+         current_user_playlists = self.sp.current_user_playlists(
+            limit=limit,
+            offset=offset
+         )
+
+         if current_user_playlists:
+            items = current_user_playlists["items"]
+
+            if not items:
+               break
+
+            self.user_playlists.extend(items)
+
+            offset += limit
+
+            if offset >= current_user_playlists["total"]:
+               break
+
+            playlist_names = [playlist["name"] for playlist in self.user_playlists]
+            return playlist_names
+
 
 # source_tracks = SourceTracks()
 # print(source_tracks.user_id)
