@@ -19,3 +19,5 @@ class EraseTrack:
 
             print(f"track deleted for ID: {key}")
             time.sleep(5)
+
+        return "END"
