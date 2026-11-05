@@ -1,3 +1,5 @@
+import itertools
+import time
 
 from .auth import Authorization
 from .source import SourceTracks
@@ -30,6 +32,25 @@ class TrackTerminus:
             if playlist:
                 playlist_id = playlist.get("id")
                 print(f"playlist '{name}' created. Populating tracks ...")
+
+                time.sleep(2)
+
+                self.populate_playlist(
+                    playlist_id=playlist_id,
+                    track_uris=track_uris,
+                    playlist_name=name
+                )
+                
+
+    def populate_playlist(self, playlist_id, track_uris, playlist_name):
+
+        for batch in itertools.batched(track_uris, 100):
+            self.sp.playlist_add_items(
+                playlist_id=playlist_id,
+                items=list(batch)
+            )
+
+            return f"successfully populated '{playlist_name}' (ID:{playlist_id})"
 
 
             
