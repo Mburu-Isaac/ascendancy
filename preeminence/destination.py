@@ -1,7 +1,3 @@
-from ast import Dict
-import time
-
-import requests
 
 from .auth import Authorization
 from .source import SourceTracks
@@ -12,53 +8,29 @@ class TrackTerminus:
     def __init__(self, track_details, create_playlists):
         self.user_id = SourceTracks().user_id
         self.sp = Authorization().authorization_code_flow()
-        self.access_token = Authorization().client_credentials_flow()
         self.previous_tracks_details: dict = track_details
-        self.playlists = create_playlists
+        self.playlists: dict = create_playlists
 
     def create_playlists(self):
 
-        created_playlist_ids = {}
+        for (name, description), (previous_playlist_id, track_uris) in zip(
+            self.playlists.items(), self.previous_tracks_details.items()
+        ):
+            if not track_uris:
+                print(f"skipping playlist ID: {previous_playlist_id}: No tracks found")
+                continue
 
-        url = "https://api.spotify.com/v1/me/playlists"
+            playlist = self.sp.user_playlist_create(
+                user=self.user_id,
+                name=name,
+                public=False,
+                description=description
+            )
 
-        for name, description in self.playlists.items():
-            payload = {
-                "name":name,
-                "public":False,
-                "collaborative":False,
-                "description":description,
-            }
+            if playlist:
+                playlist_id = playlist.get("id")
+                print(f"playlist '{name}' created. Populating tracks ...")
 
-            headers = {
-                "Authorization": f"Bearer {self.access_token}",
-                "Content-Type": "application/json"
-            }
 
-            while True:
-
-                response = requests.post(
-                    headers=headers,
-                    data=payload,
-                    url=url
-                )
-
-                if response.status_code == 429:
-                    retry_after = int(response.headers.get("Retry-After", 5))
-                    print(f"retrying playlist {name} creation in {retry_after} seconds")
-                    time.sleep(retry_after)
-                    continue
-
-                response.raise_for_status()
-                response_data = response.json()
-
-                created_playlist_ids[name] = response_data.get("id")
-                break
-
-            time.sleep(1)
-
-        return created_playlist_ids
             
-    def add_to_playlists(self):
-        pass
-
+    
