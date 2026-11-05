@@ -44,7 +44,6 @@ class SourceTracks:
    def retrieve_playlists_ids(self, target_playlists):
 
       target_playlists_ids = []
-      print("system commencing playlists details retrieval process")
 
       self.source_playlist_details()
 
@@ -107,6 +106,8 @@ class SourceTracks:
       return playlist_tracks_data
 
    def retrieve_track_details(self, target_playlists):
+
+      print("system commencing playlists details retrieval process")
 
       playlist_data = {}
 

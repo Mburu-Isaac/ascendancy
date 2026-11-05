@@ -25,13 +25,18 @@ target_playlists = [
     "EDM",
 ]
 
-source_tracks = SourceTracks()
-playlist_track_details = source_tracks.retrieve_track_details(
-    target_playlists=target_playlists
-)
+# # source playlists' data
+# source_tracks = SourceTracks()
+# playlist_track_details = source_tracks.retrieve_track_details(
+#     target_playlists=target_playlists
+# )
 
-track_destination = TrackTerminus(
-    track_details=playlist_track_details, create_playlists=playlists_to_create
-)
-# pprint(track_destination.create_playlists(playlists=playlists_to_create))
-pprint(track_destination.add_to_playlists())
+# # create and populate
+# track_destination = TrackTerminus(
+#     track_details=playlist_track_details, create_playlists=playlists_to_create
+# )
+# create_populate = track_destination.create_playlists()
+# print(create_populate)
+
+
+

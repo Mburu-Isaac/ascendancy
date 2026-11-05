@@ -33,7 +33,7 @@ class TrackTerminus:
                 playlist_id = playlist.get("id")
                 print(f"playlist '{name}' created. Populating tracks ...")
 
-                time.sleep(2)
+                time.sleep(5)
 
                 self.populate_playlist(
                     playlist_id=playlist_id,
