@@ -1,7 +1,9 @@
 from pprint import pprint
 
 from preeminence.destination import TrackTerminus
+from preeminence.divest import EraseTrack
 from preeminence.source import SourceTracks
+
 
 playlists_to_create = {
     "Nostalgic": "first",
@@ -25,18 +27,25 @@ target_playlists = [
     "EDM",
 ]
 
-# # source playlists' data
-# source_tracks = SourceTracks()
-# playlist_track_details = source_tracks.retrieve_track_details(
-#     target_playlists=target_playlists
-# )
+# source playlists' data
+source = SourceTracks()
+playlist_track_details = source.retrieve_track_details(
+    target_playlists=target_playlists
+)
 
-# # create and populate
-# track_destination = TrackTerminus(
-#     track_details=playlist_track_details, create_playlists=playlists_to_create
-# )
-# create_populate = track_destination.create_playlists()
-# print(create_populate)
+# create and populate
+destination = TrackTerminus(
+    track_details=playlist_track_details, create_playlists=playlists_to_create
+)
+create_populate = destination.create_playlists()
+print(create_populate)
 
+# delete track data
+divest = EraseTrack(
+    sp=destination.sp,
+    user_id=destination.user_id,
+    target_details=playlist_track_details
+)
+print(divest.delete_tracks())
 
 
