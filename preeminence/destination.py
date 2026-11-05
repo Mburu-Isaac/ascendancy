@@ -1,3 +1,4 @@
+from ast import Dict
 import time
 
 import requests
@@ -12,12 +13,12 @@ class TrackTerminus:
         self.user_id = SourceTracks().user_id
         self.sp = Authorization().authorization_code_flow()
         self.access_token = Authorization().client_credentials_flow()
-        self.previous_tracks_details = track_details
+        self.previous_tracks_details: dict = track_details
         self.playlists = create_playlists
 
     def create_playlists(self):
 
-        created_playlist_ids = []
+        created_playlist_ids = {}
 
         url = "https://api.spotify.com/v1/me/playlists"
 
@@ -51,7 +52,7 @@ class TrackTerminus:
                 response.raise_for_status()
                 response_data = response.json()
 
-                created_playlist_ids.append(response_data.get("id"))
+                created_playlist_ids[name] = response_data.get("id")
                 break
 
             time.sleep(1)
@@ -59,4 +60,5 @@ class TrackTerminus:
         return created_playlist_ids
             
     def add_to_playlists(self):
-        return self.previous_tracks_details
+        pass
+
