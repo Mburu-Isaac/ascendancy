@@ -10,8 +10,8 @@ from spotipy.oauth2 import SpotifyOAuth
 class Authorization:
     
     def __init__(self):
-        self.client_id =  os.environ.get("MY_CLIENT_ID")
-        self.client_secret = os.environ.get("MY_CLIENT_SECRET")
+        self.client_id = os.getenv("MY_CLIENT_ID")
+        self.client_secret = os.getenv("MY_CLIENT_SECRET")
         self.access_token = None
         self.expires_at = 0
 

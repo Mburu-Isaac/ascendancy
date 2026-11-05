@@ -1,9 +1,7 @@
-from pprint import pprint
 
 from preeminence.destination import TrackTerminus
 from preeminence.divest import EraseTrack
 from preeminence.source import SourceTracks
-
 
 playlists_to_create = {
     "Nostalgic": "first",
