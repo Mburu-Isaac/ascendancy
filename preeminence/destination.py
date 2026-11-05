@@ -8,18 +8,20 @@ from .source import SourceTracks
 
 class TrackTerminus:
 
-    def __init__(self):
+    def __init__(self, track_details, create_playlists):
         self.user_id = SourceTracks().user_id
         self.sp = Authorization().authorization_code_flow()
         self.access_token = Authorization().client_credentials_flow()
+        self.previous_tracks_details = track_details
+        self.playlists = create_playlists
 
+    def create_playlists(self):
 
-    def create_playlists(self, playlists):
+        created_playlist_ids = []
 
-        created_playlists_ids = {}
         url = "https://api.spotify.com/v1/me/playlists"
 
-        for name, description in playlists.items():
+        for name, description in self.playlists.items():
             payload = {
                 "name":name,
                 "public":False,
@@ -49,12 +51,12 @@ class TrackTerminus:
                 response.raise_for_status()
                 response_data = response.json()
 
-                created_playlists_ids[name] = response_data.get("id")
+                created_playlist_ids.append(response_data.get("id"))
                 break
 
             time.sleep(1)
 
-        return created_playlists_ids
+        return created_playlist_ids
             
     def add_to_playlists(self):
-        pass
+        return self.previous_tracks_details

@@ -1,3 +1,4 @@
+import time
 
 from .auth import Authorization
 
@@ -57,7 +58,9 @@ class SourceTracks:
             target_playlist_id = essential_playlist_data[target_playlist_name]
             target_playlists_ids.append(target_playlist_id)
 
-            print(f"{target_playlist_name} id appended to 'target playlist ids' list")
+            print(f"'{target_playlist_name}' id appended to List")
+
+            time.sleep(2)
 
          else:
             print(f"playlist '{target_playlist_name}' not found in user's library")
@@ -118,6 +121,8 @@ class SourceTracks:
          if playlist_id:
             track_details = self.get_track_uris(playlist_id)
             playlist_data.update(track_details)
+
+            time.sleep(5)
 
       return playlist_data
 
