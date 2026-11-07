@@ -75,7 +75,7 @@ class SourceTracks:
       limit = 100
       offset = 0
 
-      print("Retrieval for track URIs in the target playlists starts now ...")
+      print(f"Retrieval for track URIs in the playlist {playlist_id} starts now ...")
 
       while True:
          playlist_item = self.sp.playlist_tracks(
@@ -123,7 +123,7 @@ class SourceTracks:
             track_details = self.get_track_uris(playlist_id)
             playlist_data.update(track_details)
 
-            time.sleep(5)
+            time.sleep(2)
 
       return playlist_data
 

@@ -21,7 +21,7 @@ class Authorization:
                 client_id =self.client_id,
                 client_secret = self.client_secret,
                 redirect_uri = "https://example.com",
-                scope = "playlist-read-private playlist-modify-private"
+                scope = "playlist-read-private playlist-modify-private playlist-modify-public", 
             ),
             requests_timeout=15
         )

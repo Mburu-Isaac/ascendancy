@@ -31,17 +31,20 @@ playlist_track_details = source.retrieve_track_details(
     target_playlists=target_playlists
 )
 
+
 # create and populate
 destination = TrackTerminus(
-    track_details=playlist_track_details, create_playlists=playlists_to_create
+    track_details=playlist_track_details,
+    create_playlists=playlists_to_create,
+    sp=source.sp
 )
 create_populate = destination.create_playlists()
 print(create_populate)
 
 # delete track data
 divest = EraseTrack(
-    sp=destination.sp,
-    user_id=destination.user_id,
+    sp=source.sp,
+    user_id=source.user_id,
     target_details=playlist_track_details
 )
 print(divest.delete_tracks())

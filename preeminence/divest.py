@@ -1,3 +1,4 @@
+import itertools
 import time
 
 
@@ -11,13 +12,14 @@ class EraseTrack:
     def delete_tracks(self):
 
         for key, value in self.target_details.items():
-            self.sp.playlist_remove_all_occurences_of_items(
-                user=self.user_id,
-                playlist_id=key,
-                tracks=value
-            )
+            for batch in itertools.batched(value, 100):
+                self.sp.playlist_remove_all_occurrences_of_items(
+                    playlist_id=key,
+                    items=list(batch)
+                )
+                time.sleep(1)
 
-            print(f"track deleted for ID: {key}")
+            print(f"tracks deleted for ID: {key}")
             time.sleep(5)
 
         return "END"

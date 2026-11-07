@@ -1,3 +1,3 @@
 # ascendancy
 
-sometimes all you need is to reclaim what you gave out so delightfully
+a system that simulates cutting and pasting of spotify tracks from initial (specific) playlists to newly created playlists
