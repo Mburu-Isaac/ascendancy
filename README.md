@@ -1,3 +1,3 @@
 # ascendancy
 
-a system that simulates cutting and pasting of spotify tracks from initial (specific) playlists to newly created playlists
+a system that performs Spotify tracks' cutting and pasting from initial (specific) playlists to newly created playlists
