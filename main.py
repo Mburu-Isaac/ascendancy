@@ -1,6 +1,6 @@
 
 from preeminence.destination import TrackTerminus
-from preeminence.divest import EraseTrack
+from preeminence.divest import EraseTracks
 from preeminence.source import SourceTracks
 
 playlists_to_create = {
@@ -31,7 +31,6 @@ playlist_track_details = source.retrieve_track_details(
     target_playlists=target_playlists
 )
 
-
 # create and populate
 destination = TrackTerminus(
     track_details=playlist_track_details,
@@ -42,7 +41,7 @@ create_populate = destination.create_playlists()
 print(create_populate)
 
 # delete track data
-divest = EraseTrack(
+divest = EraseTracks(
     sp=source.sp,
     user_id=source.user_id,
     target_details=playlist_track_details

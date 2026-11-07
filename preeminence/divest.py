@@ -2,7 +2,7 @@ import itertools
 import time
 
 
-class EraseTrack:
+class EraseTracks:
 
     def __init__(self, sp, user_id, target_details):
         self.sp = sp

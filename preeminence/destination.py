@@ -1,15 +1,9 @@
 import itertools
+import json
 import time
 from pathlib import Path
-from pprint import pprint
-import json
-import token
 
 import requests
-
-from .auth import Authorization
-
-
 
 
 class TrackTerminus:
@@ -33,8 +27,6 @@ class TrackTerminus:
         self.sp = sp
         self.previous_tracks_details: dict = track_details
         self.playlists: dict = create_playlists
-
-        print(self.playlists)
 
 
     def create_playlists(self):
